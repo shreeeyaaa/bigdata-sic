@@ -598,14 +598,14 @@
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">describe</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">describe</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
 </code></pre></div>
-<a class="glightbox" href="images/31.1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.1.png" /></a></p>
+<a class="glightbox" href="../images/31.1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.1.png" /></a></p>
 <p>This showed us the tables <code>authors</code> and <code>posts</code>, which we are going to use for Sqoop operations.</p>
 <p>To understand the structure and data inside the tables, we ran the following SQL query to view some sample records from the <code>authors</code> table:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">added</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">authors</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
-<a class="glightbox" href="images/31.2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.2.png" /></a></p>
+<a class="glightbox" href="../images/31.2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.2.png" /></a></p>
 <p>This command displayed the first five rows of the <code>authors</code> table, including useful fields like the author's ID, name, email, and the date they were added. This step helps verify that the data exists and is in the expected format before performing any Sqoop imports.</p>
 <p>After completing the exploration, we exited the MariaDB shell by typing:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">quit</span>
@@ -616,13 +616,13 @@
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sqoop<span class="w"> </span><span class="nb">help</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sqoop<span class="w"> </span><span class="nb">help</span><span class="w"> </span>import
 </code></pre></div>
-<a class="glightbox" href="images/31.3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.3.png" /></a>
+<a class="glightbox" href="../images/31.3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.3.png" /></a>
 We also listed the databases and tables in MariaDB using:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sqoop<span class="w"> </span>list-databases<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost<span class="w"> </span>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>or
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sqoop<span class="w"> </span>list-tables<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span>--username<span class="w"> </span>student<span class="w"> </span>-P
 </code></pre></div>
-<a class="glightbox" href="images/31.4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.4.png" /></a></p>
+<a class="glightbox" href="../images/31.4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.4.png" /></a></p>
 <p>Instead of typing the database password directly in the command using the --password option, we can use the -P (uppercase) flag. This way, Sqoop will securely prompt us to enter the password at runtime, and it won’t be visible on the screen or saved in our command history.</p>
 <hr />
 <h2 id="3-importing-tables-into-hdfs">3. Importing Tables into HDFS<a class="headerlink" href="#3-importing-tables-into-hdfs" title="Permanent link">&para;</a></h2>
@@ -639,7 +639,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <p>To check:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student/posts
 </code></pre></div>
-<a class="glightbox" href="images/31.5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.5.png" /></a></p>
+<a class="glightbox" href="../images/31.5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.5.png" /></a></p>
 <hr />
 <h2 id="4-importing-tables-to-custom-directory-with-delimiter">4. Importing Tables to Custom Directory with Delimiter<a class="headerlink" href="#4-importing-tables-to-custom-directory-with-delimiter" title="Permanent link">&para;</a></h2>
 <p>We created a custom HDFS directory:</p>
@@ -655,8 +655,8 @@ We also listed the databases and tables in MariaDB using:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/mywarehouse/authors
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-cat<span class="w"> </span>/mywarehouse/authors/part-m-00000
 </code></pre></div>
-<a class="glightbox" href="images/31.6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.6.png" /></a>
-<a class="glightbox" href="images/31.7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.7.png" /></a></p>
+<a class="glightbox" href="../images/31.6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.6.png" /></a>
+<a class="glightbox" href="../images/31.7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.7.png" /></a></p>
 <p>When we executed the cat command to view the contents of the imported authors table, we observed that each line of data was separated by commas (,) as specified by the --fields-terminated-by ',' option. This is different from the earlier posts file, which used the default tab (\t) delimiter in HDFS.</p>
 <hr />
 <h2 id="5-importing-selected-columns">5. Importing Selected Columns<a class="headerlink" href="#5-importing-selected-columns" title="Permanent link">&para;</a></h2>
@@ -666,7 +666,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>--columns<span class="w"> </span><span class="s2">&quot;first_name, last_name, email&quot;</span>
 </code></pre></div>
-<a class="glightbox" href="images/31.8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.8.png" /></a></p>
+<a class="glightbox" href="../images/31.8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.8.png" /></a></p>
 <hr />
 <h2 id="6-importing-with-filters">6. Importing with Filters<a class="headerlink" href="#6-importing-with-filters" title="Permanent link">&para;</a></h2>
 <p>We imported rows from <code>authors</code> where <code>first_name = 'Dorthy'</code>:</p>
@@ -676,7 +676,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>--where<span class="w"> </span><span class="s2">&quot;first_name=&#39;Dorthy&#39;&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>--target-dir<span class="w"> </span>authors_Dorthy
 </code></pre></div>
-<p><a class="glightbox" href="images/31.9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.9.png" /></a></p>
+<p><a class="glightbox" href="../images/31.9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.9.png" /></a></p>
 <hr />
 <h2 id="7-importing-in-parquet-format">7. Importing in Parquet Format<a class="headerlink" href="#7-importing-in-parquet-format" title="Permanent link">&para;</a></h2>
 <p>We imported the <code>authors</code> table as Parquet:</p>
@@ -689,7 +689,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-get<span class="w"> </span>/mywarehouse/authors_parquet/&lt;file&gt;.parquet
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>parquet-tools<span class="w"> </span>show<span class="w"> </span>&lt;file&gt;.parquet
 </code></pre></div>
-<a class="glightbox" href="images/31.10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.10.png" /></a></p>
+<a class="glightbox" href="../images/31.10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.10.png" /></a></p>
 <hr />
 <h2 id="8-importing-with-compression">8. Importing with Compression<a class="headerlink" href="#8-importing-with-compression" title="Permanent link">&para;</a></h2>
 <p>We imported data with compression enabled:</p>
@@ -697,7 +697,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--target-dir<span class="w"> </span>/mywarehouse/authors_compressed<span class="w"> </span>--compress
 </code></pre></div>
-<a class="glightbox" href="images/31.11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.11.png" /></a></p>
+<a class="glightbox" href="../images/31.11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.11.png" /></a></p>
 <hr />
 <h2 id="9-exporting-data-from-hdfs-to-rdbms">9. Exporting Data from HDFS to RDBMS<a class="headerlink" href="#9-exporting-data-from-hdfs-to-rdbms" title="Permanent link">&para;</a></h2>
 <p>We exported the previously filtered data (<code>Dorthy</code>) back to MariaDB:</p>
@@ -706,7 +706,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>--table<span class="w"> </span>authors_export<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>--export-dir<span class="w"> </span>dorthy
 </code></pre></div>
-<a class="glightbox" href="images/31.12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.12.png" /></a></p>
+<a class="glightbox" href="../images/31.12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.12.png" /></a></p>
 <hr />
 <h2 id="10-advanced-exercises">10. Advanced Exercises<a class="headerlink" href="#10-advanced-exercises" title="Permanent link">&para;</a></h2>
 <p>We also worked with Sqoop to perform advanced data import operations into HDFS using both text and Parquet formats with compression.</p>
@@ -715,7 +715,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sqoop<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;DESCRIBE posts;&quot;</span>
 </code></pre></div>
-<p><a class="glightbox" href="images/31.13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.13.png" /></a></p>
+<p><a class="glightbox" href="../images/31.13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.13.png" /></a></p>
 <p>By running this command, we were able to view the list of columns (id, author_id, title, description, content, date) along with their data types and other information, which helped us select the appropriate columns for the subsequent data import task.</p>
 <p>Then we imported selected columns from the <code>posts</code> table into the HDFS directory <code>/tmp/mylabs/posts_info</code>. We chose only the <code>id</code>, <code>title</code>, and <code>date</code> columns and saved the data in text format with tab delimiters. This was done using the following command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
@@ -728,7 +728,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/tmp/mylabs/posts_info
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-cat<span class="w"> </span>/tmp/mylabs/posts_info/part-m-00000
 </code></pre></div></p>
-<p><a class="glightbox" href="images/31.14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.14.png" /></a></p>
+<p><a class="glightbox" href="../images/31.14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.14.png" /></a></p>
 <p>Task 2:</p>
 <p>Next, we imported the same selected data into Parquet format with Snappy compression for efficient storage. We saved this data into the <code>/tmp/mylabs/posts_compressed</code> directory using the command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
@@ -741,7 +741,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-get<span class="w"> </span>/tmp/mylabs/posts_compressed/&lt;filename&gt;
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>parquet-tools<span class="w"> </span>show<span class="w"> </span>&lt;filename&gt;
 </code></pre></div></p>
-<p><a class="glightbox" href="images/31.15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.15.png" /></a></p>
+<p><a class="glightbox" href="../images/31.15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.15.png" /></a></p>
 <p>Task 4:</p>
 <p>For this task, we imported specific columns (id, first_name, last_name, and birthdate) from the authors table into the HDFS home directory. Before starting the import, we checked for the existence of the authors directory in HDFS. Since the directory existed, we deleted it to avoid any conflicts or overwrite issues using the command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-rm<span class="w"> </span>-r<span class="w"> </span>authors
@@ -752,7 +752,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>--columns<span class="w"> </span><span class="s2">&quot;id, first_name, last_name, birthdate&quot;</span>
 </code></pre></div>
-<p><a class="glightbox" href="images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.16.png" /></a></p>
+<p><a class="glightbox" href="../images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.16.png" /></a></p>
 <p>Task 5:</p>
 <p>Finally, we imported rows from the <code>posts</code> table where the <code>title</code> column is not null. We selected only the <code>id</code>, <code>title</code>, and <code>content</code> columns and saved the data in Parquet format with Snappy compression into the <code>/tmp/mylabs/posts_NotN</code> directory. The command used was:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
@@ -762,7 +762,7 @@ We also listed the databases and tables in MariaDB using:</p>
 <a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>--target-dir<span class="w"> </span>/tmp/mylabs/posts_NotN<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>--as-parquetfile<span class="w"> </span>--compression-codec<span class="w"> </span>snappy
 </code></pre></div>
-<a class="glightbox" href="images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.16.png" /></a></p>
+<a class="glightbox" href="../images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="../images/31.16.png" /></a></p>
 <p>Through these exercises, we gained hands-on experience in selectively importing data, working with different file formats, applying compression, and using conditional queries within Sqoop.</p>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>

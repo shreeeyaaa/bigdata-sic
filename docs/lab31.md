@@ -293,7 +293,7 @@ sqoop import --connect jdbc:mysql://localhost/labs \
 --target-dir /tmp/mylabs/posts_NotN \
 --as-parquetfile --compression-codec snappy
 ```
-![MariaDB](images/31.16.png)
+![MariaDB](images/31.17.png)
 
 Through these exercises, we gained hands-on experience in selectively importing data, working with different file formats, applying compression, and using conditional queries within Sqoop.
 
