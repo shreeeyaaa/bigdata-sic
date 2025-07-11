@@ -1,0 +1,56 @@
+site_name: Big Data Lab Documentation
+site_description: Complete documentation for Big Data Lab exercises
+site_author: Your Name
+site_url: https://shreeeyaaa.github.io/bigdata-sic/
+
+nav:
+  - Home: index.md
+  - Lab 2 - Working with HDFS: lab2-hdfs.md
+  - Lab 3.1 - YARN/MapReduce: lab3.md
+  - Lab 3.2 - Sqoop: lab31.md
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.annotate
+    - content.code.copy
+    - toc.integrate
+
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - glightbox
