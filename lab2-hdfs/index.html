@@ -564,24 +564,24 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./start-dfs.sh
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>./start-yarn.sh
 </code></pre></div>
-<a class="glightbox" href="images/2.1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.1.png" /></a></p>
+<a class="glightbox" href="../images/2.1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.1.png" /></a></p>
 <p>This started the NameNode, DataNode (for HDFS), and the ResourceManager and NodeManager (for YARN). Successful output messages confirmed the services were up and running.</p>
 <hr />
 <h2 id="2-exploring-hdfs-and-linux-file-systems">2. Exploring HDFS and Linux File Systems<a class="headerlink" href="#2-exploring-hdfs-and-linux-file-systems" title="Permanent link">&para;</a></h2>
 <p>Next, we logged in as student and explored the structure of HDFS and local Linux file systems. As the <code>student</code> user, we listed the root directory of HDFS:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/
 </code></pre></div>
-<a class="glightbox" href="images/2.2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.2.png" /></a></p>
+<a class="glightbox" href="../images/2.2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.2.png" /></a></p>
 <p>This displayed top-level directories such as <code>/tmp</code> and <code>/user</code>. We then checked for the presence of a home directory for the <code>student</code> user:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student
 </code></pre></div>
-<a class="glightbox" href="images/2.3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.3.png" /></a></p>
+<a class="glightbox" href="../images/2.3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.3.png" /></a></p>
 <p>It was empty initially. In parallel, we examined the local Linux home directory:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>/home/student
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ls<span class="w"> </span>-l
 </code></pre></div>
-<a class="glightbox" href="images/2.4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.4.png" /></a></p>
+<a class="glightbox" href="../images/2.4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.4.png" /></a></p>
 <p>This step highlighted the dual file systems in use—HDFS and Linux.</p>
 <hr />
 <h2 id="3-creating-a-new-linux-and-hdfs-user">3. Creating a New Linux and HDFS User<a class="headerlink" href="#3-creating-a-new-linux-and-hdfs-user" title="Permanent link">&para;</a></h2>
@@ -597,12 +597,12 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">pwd</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>groups
 </code></pre></div>
-<a class="glightbox" href="images/2.5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.5.png" /></a></p>
+<a class="glightbox" href="../images/2.5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.5.png" /></a></p>
 <p>For HDFS, as <code>hadoop</code> user, we created and assigned ownership of a new directory:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>/user/student2
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-chown<span class="w"> </span>student2<span class="w"> </span>/user/student2
 </code></pre></div>
-<p><a class="glightbox" href="images/2.6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.6.png" /></a></p>
+<p><a class="glightbox" href="../images/2.6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.6.png" /></a></p>
 <!-- Verification from the `student2` account confirmed that the HDFS home directory was successfully created. -->
 <p>After switching to the student2 user account, we verified the creation of the user's HDFS home directory by running the following command in the terminal:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student2
@@ -611,25 +611,25 @@
 <p>To further confirm the behavior of HDFS when a directory does not exist, we attempted to list the contents of a non-existent directory by running:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student3
 </code></pre></div></p>
-<p><a class="glightbox" href="images/2.7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.7.png" /></a></p>
+<p><a class="glightbox" href="../images/2.7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.7.png" /></a></p>
 <hr />
 <h2 id="4-file-handling-in-hdfs">4. File Handling in HDFS<a class="headerlink" href="#4-file-handling-in-hdfs" title="Permanent link">&para;</a></h2>
 <p>Returning to the <code>student</code> user, we created a subdirectory in HDFS for a MapReduce test:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>MRtest
 </code></pre></div>
-<a class="glightbox" href="images/2.9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.9.png" /></a></p>
+<a class="glightbox" href="../images/2.9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.9.png" /></a></p>
 <p>We navigated to the local file containing <em>Alice in Wonderland</em>:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>~/Data
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>less<span class="w"> </span>alice_in_wonderland.txt
 </code></pre></div>
-<a class="glightbox" href="images/2.10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.10.png" /></a></p>
+<a class="glightbox" href="../images/2.10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.10.png" /></a></p>
 <p>Then, we uploaded this file into our HDFS MRtest directory:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-put<span class="w"> </span>~/Data/alice_in_wonderland.txt<span class="w"> </span>/user/student/MRtest/
 </code></pre></div>
 <p>To ensure the file was successfully transferred, we listed the contents:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student/MRtest
 </code></pre></div>
-<a class="glightbox" href="images/2.11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.11.png" /></a></p>
+<a class="glightbox" href="../images/2.11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.11.png" /></a></p>
 <hr />
 <h2 id="5-exploring-hdfs-with-the-web-ui">5. Exploring HDFS with the Web UI<a class="headerlink" href="#5-exploring-hdfs-with-the-web-ui" title="Permanent link">&para;</a></h2>
 <p>To visually inspect HDFS, we opened the Firefox browser and visited:</p>
@@ -643,7 +643,7 @@
 <li><strong>Startup Progress:</strong> Detailed the loading of fsimage and edits file.</li>
 </ul>
 <p>From the <strong>Utilities &gt; Browse the file system</strong>, we navigated to <code>/user/student/MRtest</code> and opened <code>alice_in_wonderland.txt</code>. We viewed the <strong>Block Information</strong>, which included the Block ID and Block Pool ID.</p>
-<p><a class="glightbox" href="images/2.12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.12.png" /></a></p>
+<p><a class="glightbox" href="../images/2.12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.12.png" /></a></p>
 <hr />
 <h2 id="6-locating-block-storage-on-disk">6. Locating Block Storage on Disk<a class="headerlink" href="#6-locating-block-storage-on-disk" title="Permanent link">&para;</a></h2>
 <p>We used the terminal to locate the actual block files on the disk using the <code>find</code> command.
@@ -654,11 +654,11 @@ First, as <code>hadoop</code> user, we searched for the Block Pool ID:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;path_found&gt;
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>sudo<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span>*&lt;BlockID&gt;*<span class="w"> </span>-print
 </code></pre></div>
-<a class="glightbox" href="images/2.14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.14.png" /></a></p>
+<a class="glightbox" href="../images/2.14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.14.png" /></a></p>
 <p>The block file and its metadata were discovered. We viewed the actual content of the text block using:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cat<span class="w"> </span>&lt;block_file_path&gt;
 </code></pre></div>
-<a class="glightbox" href="images/2.15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="images/2.15.png" /></a></p>
+<a class="glightbox" href="../images/2.15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Description of what this screenshot shows" src="../images/2.15.png" /></a></p>
 <p>This confirmed that Hadoop had stored our text file successfully in its block-based architecture.</p>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
