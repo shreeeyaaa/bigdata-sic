@@ -1,0 +1,848 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete documentation for Big Data Lab exercises">
+      
+      
+        <meta name="author" content="Your Name">
+      
+      
+        <link rel="canonical" href="https://shreeeyaaa.github.io/bigdata-sic/lab31/">
+      
+      
+        <link rel="prev" href="../lab3/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Lab 3.2 - Sqoop - Big Data Lab Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-32-data-ingestion-with-sqoop-for-rdbms-mariadb" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Big Data Lab Documentation" class="md-header__button md-logo" aria-label="Big Data Lab Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Big Data Lab Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3.2 - Sqoop
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab2-hdfs/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Lab 2 - Working with HDFS
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab3/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Lab 3.1 - YARN/MapReduce
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Lab 3.2 - Sqoop
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Big Data Lab Documentation" class="md-nav__button md-logo" aria-label="Big Data Lab Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Big Data Lab Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2-hdfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 2 - Working with HDFS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 3.1 - YARN/MapReduce
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab 3.2 - Sqoop
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 3.2 - Sqoop
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objective
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-exploring-the-database-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Exploring the Database (MariaDB)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sqoop-basic-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Sqoop Basic Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-importing-tables-into-hdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Importing Tables into HDFS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-importing-tables-to-custom-directory-with-delimiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Importing Tables to Custom Directory with Delimiter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-importing-selected-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Importing Selected Columns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-importing-with-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Importing with Filters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-importing-in-parquet-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Importing in Parquet Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-importing-with-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Importing with Compression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-exporting-data-from-hdfs-to-rdbms" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Exporting Data from HDFS to RDBMS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-advanced-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Advanced Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lab-32-data-ingestion-with-sqoop-for-rdbms-mariadb">Lab 3.2: Data Ingestion with Sqoop for RDBMS (MariaDB)<a class="headerlink" href="#lab-32-data-ingestion-with-sqoop-for-rdbms-mariadb" title="Permanent link">&para;</a></h1>
+<h2 id="objective">Objective<a class="headerlink" href="#objective" title="Permanent link">&para;</a></h2>
+<p>The goal of this lab is to understand how to ingest data from relational databases into Hadoop Distributed File System (HDFS) using <strong>Sqoop</strong>. We performed various Sqoop operations such as importing entire tables, selective columns, filtering rows, using different file formats, and exporting data back to RDBMS.</p>
+<hr />
+<h2 id="1-exploring-the-database-mariadb">1. Exploring the Database (MariaDB)<a class="headerlink" href="#1-exploring-the-database-mariadb" title="Permanent link">&para;</a></h2>
+<p>We began by accessing the <strong>MariaDB</strong> database and inspecting its structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mysql<span class="w"> </span>--user<span class="o">=</span>student<span class="w"> </span>--password<span class="o">=</span>student<span class="w"> </span>labs
+</code></pre></div>
+<p>We checked the existing databases and tables using:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">show</span><span class="w"> </span><span class="n">databases</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">describe</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">describe</span><span class="w"> </span><span class="n">posts</span><span class="p">;</span>
+</code></pre></div>
+<a class="glightbox" href="images/31.1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.1.png" /></a></p>
+<p>This showed us the tables <code>authors</code> and <code>posts</code>, which we are going to use for Sqoop operations.</p>
+<p>To understand the structure and data inside the tables, we ran the following SQL query to view some sample records from the <code>authors</code> table:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">added</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">authors</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+<a class="glightbox" href="images/31.2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.2.png" /></a></p>
+<p>This command displayed the first five rows of the <code>authors</code> table, including useful fields like the author's ID, name, email, and the date they were added. This step helps verify that the data exists and is in the expected format before performing any Sqoop imports.</p>
+<p>After completing the exploration, we exited the MariaDB shell by typing:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">quit</span>
+</code></pre></div>
+<hr />
+<h2 id="2-sqoop-basic-commands">2. Sqoop Basic Commands<a class="headerlink" href="#2-sqoop-basic-commands" title="Permanent link">&para;</a></h2>
+<p>We checked the basic Sqoop commands and help menu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sqoop<span class="w"> </span><span class="nb">help</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sqoop<span class="w"> </span><span class="nb">help</span><span class="w"> </span>import
+</code></pre></div>
+<a class="glightbox" href="images/31.3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.3.png" /></a>
+We also listed the databases and tables in MariaDB using:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sqoop<span class="w"> </span>list-databases<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost<span class="w"> </span>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>or
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sqoop<span class="w"> </span>list-tables<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span>--username<span class="w"> </span>student<span class="w"> </span>-P
+</code></pre></div>
+<a class="glightbox" href="images/31.4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.4.png" /></a></p>
+<p>Instead of typing the database password directly in the command using the --password option, we can use the -P (uppercase) flag. This way, Sqoop will securely prompt us to enter the password at runtime, and it won’t be visible on the screen or saved in our command history.</p>
+<hr />
+<h2 id="3-importing-tables-into-hdfs">3. Importing Tables into HDFS<a class="headerlink" href="#3-importing-tables-into-hdfs" title="Permanent link">&para;</a></h2>
+<p>Sqoop provides an import-all-tables command that allows you to import all tables from a database into HDFS in one step. We used the following command to import all tables from the labs database:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sqoop<span class="w"> </span>import-all-tables<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student
+</code></pre></div>
+<p>This command automatically imports every table from the specified database and saves each table's data into a separate directory under the user's home directory in HDFS.</p>
+<p>In real environments, the import-all-tables command is rarely used because databases usually have many tables, and importing all of them at once can be time-consuming and resource-intensive. Instead, we typically import tables one by one using the import command for better control and efficiency.</p>
+<p>We imported the entire <code>posts</code> table into HDFS:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span>--table<span class="w"> </span>posts
+</code></pre></div>
+<p>To check:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/student/posts
+</code></pre></div>
+<a class="glightbox" href="images/31.5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.5.png" /></a></p>
+<hr />
+<h2 id="4-importing-tables-to-custom-directory-with-delimiter">4. Importing Tables to Custom Directory with Delimiter<a class="headerlink" href="#4-importing-tables-to-custom-directory-with-delimiter" title="Permanent link">&para;</a></h2>
+<p>We created a custom HDFS directory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>/mywarehouse
+</code></pre></div>
+<p>And imported the <code>authors</code> table with comma-separated fields:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>--target-dir<span class="w"> </span>/mywarehouse/authors
+</code></pre></div>
+<p>To verify:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/mywarehouse/authors
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-cat<span class="w"> </span>/mywarehouse/authors/part-m-00000
+</code></pre></div>
+<a class="glightbox" href="images/31.6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.6.png" /></a>
+<a class="glightbox" href="images/31.7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.7.png" /></a></p>
+<p>When we executed the cat command to view the contents of the imported authors table, we observed that each line of data was separated by commas (,) as specified by the --fields-terminated-by ',' option. This is different from the earlier posts file, which used the default tab (\t) delimiter in HDFS.</p>
+<hr />
+<h2 id="5-importing-selected-columns">5. Importing Selected Columns<a class="headerlink" href="#5-importing-selected-columns" title="Permanent link">&para;</a></h2>
+<p>We imported specific columns from the <code>authors</code> table:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>--columns<span class="w"> </span><span class="s2">&quot;first_name, last_name, email&quot;</span>
+</code></pre></div>
+<a class="glightbox" href="images/31.8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.8.png" /></a></p>
+<hr />
+<h2 id="6-importing-with-filters">6. Importing with Filters<a class="headerlink" href="#6-importing-with-filters" title="Permanent link">&para;</a></h2>
+<p>We imported rows from <code>authors</code> where <code>first_name = 'Dorthy'</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>--where<span class="w"> </span><span class="s2">&quot;first_name=&#39;Dorthy&#39;&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>--target-dir<span class="w"> </span>authors_Dorthy
+</code></pre></div>
+<p><a class="glightbox" href="images/31.9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.9.png" /></a></p>
+<hr />
+<h2 id="7-importing-in-parquet-format">7. Importing in Parquet Format<a class="headerlink" href="#7-importing-in-parquet-format" title="Permanent link">&para;</a></h2>
+<p>We imported the <code>authors</code> table as Parquet:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--target-dir<span class="w"> </span>/mywarehouse/authors_parquet<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>--as-parquetfile
+</code></pre></div>
+<p>We retrieved the Parquet file locally and viewed it using <code>parquet-tools</code>:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-get<span class="w"> </span>/mywarehouse/authors_parquet/&lt;file&gt;.parquet
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>parquet-tools<span class="w"> </span>show<span class="w"> </span>&lt;file&gt;.parquet
+</code></pre></div>
+<a class="glightbox" href="images/31.10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.10.png" /></a></p>
+<hr />
+<h2 id="8-importing-with-compression">8. Importing with Compression<a class="headerlink" href="#8-importing-with-compression" title="Permanent link">&para;</a></h2>
+<p>We imported data with compression enabled:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--target-dir<span class="w"> </span>/mywarehouse/authors_compressed<span class="w"> </span>--compress
+</code></pre></div>
+<a class="glightbox" href="images/31.11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.11.png" /></a></p>
+<hr />
+<h2 id="9-exporting-data-from-hdfs-to-rdbms">9. Exporting Data from HDFS to RDBMS<a class="headerlink" href="#9-exporting-data-from-hdfs-to-rdbms" title="Permanent link">&para;</a></h2>
+<p>We exported the previously filtered data (<code>Dorthy</code>) back to MariaDB:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sqoop<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>--table<span class="w"> </span>authors_export<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>--export-dir<span class="w"> </span>dorthy
+</code></pre></div>
+<a class="glightbox" href="images/31.12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.12.png" /></a></p>
+<hr />
+<h2 id="10-advanced-exercises">10. Advanced Exercises<a class="headerlink" href="#10-advanced-exercises" title="Permanent link">&para;</a></h2>
+<p>We also worked with Sqoop to perform advanced data import operations into HDFS using both text and Parquet formats with compression.</p>
+<p>Task 1:</p>
+<p>To find the column names of the posts table without accessing MariaDB directly, we used the sqoop eval command. This allowed us to execute a SQL query from the terminal using Sqoop. We ran the following command to describe the structure of the posts table and retrieve its column names:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sqoop<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;DESCRIBE posts;&quot;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/31.13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.13.png" /></a></p>
+<p>By running this command, we were able to view the list of columns (id, author_id, title, description, content, date) along with their data types and other information, which helped us select the appropriate columns for the subsequent data import task.</p>
+<p>Then we imported selected columns from the <code>posts</code> table into the HDFS directory <code>/tmp/mylabs/posts_info</code>. We chose only the <code>id</code>, <code>title</code>, and <code>date</code> columns and saved the data in text format with tab delimiters. This was done using the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>--table<span class="w"> </span>posts<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>--columns<span class="w"> </span><span class="s2">&quot;id, title, date&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>--target-dir<span class="w"> </span>/tmp/mylabs/posts_info
+</code></pre></div>
+<p>For viewing:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/tmp/mylabs/posts_info
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-cat<span class="w"> </span>/tmp/mylabs/posts_info/part-m-00000
+</code></pre></div></p>
+<p><a class="glightbox" href="images/31.14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.14.png" /></a></p>
+<p>Task 2:</p>
+<p>Next, we imported the same selected data into Parquet format with Snappy compression for efficient storage. We saved this data into the <code>/tmp/mylabs/posts_compressed</code> directory using the command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>--table<span class="w"> </span>posts<span class="w"> </span>--columns<span class="w"> </span><span class="s2">&quot;id, title, created_at&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>--target-dir<span class="w"> </span>/tmp/mylabs/posts_compressed<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>--as-parquetfile<span class="w"> </span>--compression-codec<span class="w"> </span>snappy
+</code></pre></div>
+<p>For viewing:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-get<span class="w"> </span>/tmp/mylabs/posts_compressed/&lt;filename&gt;
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>parquet-tools<span class="w"> </span>show<span class="w"> </span>&lt;filename&gt;
+</code></pre></div></p>
+<p><a class="glightbox" href="images/31.15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.15.png" /></a></p>
+<p>Task 4:</p>
+<p>For this task, we imported specific columns (id, first_name, last_name, and birthdate) from the authors table into the HDFS home directory. Before starting the import, we checked for the existence of the authors directory in HDFS. Since the directory existed, we deleted it to avoid any conflicts or overwrite issues using the command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>hdfs<span class="w"> </span>dfs<span class="w"> </span>-rm<span class="w"> </span>-r<span class="w"> </span>authors
+</code></pre></div>
+<p>After clearing the directory, we executed the Sqoop import command to bring in only the specified columns. The data was saved in plain text format with tab delimiters as required:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>--table<span class="w"> </span>authors<span class="w"> </span>--fields-terminated-by<span class="w"> </span><span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>--columns<span class="w"> </span><span class="s2">&quot;id, first_name, last_name, birthdate&quot;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.16.png" /></a></p>
+<p>Task 5:</p>
+<p>Finally, we imported rows from the <code>posts</code> table where the <code>title</code> column is not null. We selected only the <code>id</code>, <code>title</code>, and <code>content</code> columns and saved the data in Parquet format with Snappy compression into the <code>/tmp/mylabs/posts_NotN</code> directory. The command used was:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>sqoop<span class="w"> </span>import<span class="w"> </span>--connect<span class="w"> </span>jdbc:mysql://localhost/labs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>--username<span class="w"> </span>student<span class="w"> </span>--password<span class="w"> </span>student<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>--table<span class="w"> </span>posts<span class="w"> </span>--where<span class="w"> </span><span class="s2">&quot;title is not null&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>--columns<span class="w"> </span><span class="s2">&quot;id, title, content&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>--target-dir<span class="w"> </span>/tmp/mylabs/posts_NotN<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>--as-parquetfile<span class="w"> </span>--compression-codec<span class="w"> </span>snappy
+</code></pre></div>
+<a class="glightbox" href="images/31.16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="MariaDB" src="images/31.16.png" /></a></p>
+<p>Through these exercises, we gained hands-on experience in selectively importing data, working with different file formats, applying compression, and using conditional queries within Sqoop.</p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>In this lab, we:</p>
+<ul>
+<li>Explored MariaDB databases and tables</li>
+<li>
+<p>Performed Sqoop imports with various configurations:</p>
+</li>
+<li>
+<p>Full table import</p>
+</li>
+<li>Selected columns import</li>
+<li>Conditional imports using <code>--where</code></li>
+<li>Text and Parquet file formats</li>
+<li>Compression using Snappy</li>
+<li>Exported HDFS data back to RDBMS</li>
+</ul>
+<p>This lab provided practical exposure to <strong>data ingestion pipelines using Sqoop</strong>, a key component of Big Data ecosystems.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
